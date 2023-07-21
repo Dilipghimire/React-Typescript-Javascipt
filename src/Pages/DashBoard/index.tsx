@@ -60,28 +60,17 @@ export default () => {
             <Link to={"../../portfolio/dash-board"}>Portfolio</Link>
           </h3>
         </Background>
-        <Background className="app-list" onClick={toggleModal}>
-          <h3>Modal</h3>
-        </Background>
         <Background className="app-list">
           <h3>
             <Link to={"../amazon/login"}>Amazon Clone</Link>
           </h3>
         </Background>
-        {isModalOpen && (
-          <Modal
-            $css={css`
-              width: 450px;
-            `}
-            title="Hello from title Header"
-          >
-            hello
-          </Modal>
-        )}
+        <Background className="app-list">
+          <h3>
+          <Link to={"../weather"}>Weather App</Link>
+          </h3>
+        </Background>
       </Div>
-      <Carousel items={items} itemIndex={itemIndex} setItemIndex={setItemIndex}>
-        <img src={items[itemIndex].src} />
-      </Carousel>
     </Div>
   );
 };

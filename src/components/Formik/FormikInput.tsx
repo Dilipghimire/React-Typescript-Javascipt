@@ -20,6 +20,7 @@ const Input = styled.input<CustomInputProps>`
   border: 1px solid #ccc;
   width: 100%;
   box-sizing: border-box;
+  border-radius: 15px;
 
   ${({ $css }) => $css};
 `;
