@@ -10,7 +10,6 @@ export default ({ data }: { data: ForecastData }) => {
   const { addForecastData, forecastData } = useForecast();
   const navigate = useNavigate();
 
-  console.log(forecastData);
 
   useEffect(() => {
     if (forecastData) {

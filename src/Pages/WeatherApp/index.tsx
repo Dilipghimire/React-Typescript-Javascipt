@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { format, getDay, getTime, parseISO } from "date-fns";
 import WeeklyWeather from "./WeeklyWeather";
 import DetailChart from "./DetailChart";
-import { ForecastProvider } from "./ForecastContext";
+import { ForecastProvider, useForecast } from "./ForecastContext";
 
 const WeatherContainer = styled.div`
   position: absolute;
@@ -85,34 +85,38 @@ const SearchBox = ({ mutateAsync }: { mutateAsync: any }) => {
 
 export default () => {
   const { data, mutateAsync } = useWeatherForecast();
+  const { addForecastData, forecastData } = useForecast();
 
   return (
-      <Div
-        $css={css`
-          position: relative;
+    <Div
+      $css={css`
+        position: relative;
 
-          img {
-            width: 100vw;
-            height: 100vh;
-          }
-        `}
+        img {
+          width: 100vw;
+          height: 100vh;
+        }
+      `}
+    >
+      <img src={bg} />
+
+      <Formik
+        initialValues={{ location: 45069 }}
+        onSubmit={() => {
+          //console.log()
+        }}
       >
-        <img src={bg} />
-
-        <Formik
-          initialValues={{ location: 45069 }}
-          onSubmit={() => {
-            //console.log()
-          }}
-        >
-          <SearchBox mutateAsync={mutateAsync} />
-        </Formik>
-        <WeatherContainer>
+        <SearchBox mutateAsync={mutateAsync} />
+      </Formik>
+      <WeatherContainer>
+        {data && (
           <Div
             $css={css`
               display: flex;
               align-items: center;
+              cursor: pointer;
             `}
+            onClick={() => addForecastData(data?.forecast?.forecastday?.[0])}
           >
             <img src={data?.current?.condition?.icon} />
             <div>
@@ -124,8 +128,9 @@ export default () => {
               </dl>
             </div>
           </Div>
-          {data && <WeeklyWeather data={data} />}
-        </WeatherContainer>
-      </Div>
+        )}
+        {data && <WeeklyWeather data={data} />}
+      </WeatherContainer>
+    </Div>
   );
 };

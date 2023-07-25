@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +11,9 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { useForecast } from "./ForecastContext";
+import { Div } from "../../components/Tags/Tags";
+import { css } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -37,10 +40,17 @@ export const options = {
 
 export default () => {
   const { forecastData } = useForecast();
+  const navigate = useNavigate();
 
-  console.log({forecastData})
+  useEffect(() => {
+    if (!forecastData) {
+      navigate("../weather");
+    }
+  }, [forecastData]);
 
-  const labels = forecastData?.hour?.map((item) => item?.time.substring(18, 11));
+  const labels = forecastData?.hour?.map((item) =>
+    item?.time.substring(18, 11)
+  );
 
   const data = {
     labels,
@@ -48,11 +58,20 @@ export default () => {
       {
         label: "temp",
         data: forecastData?.hour?.map((item) => item?.temp_f),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "black",
+        backgroundColor: "black",
       },
     ],
   };
 
-  return <Line options={options} data={data} />;
+  return (
+    <Div
+      $css={css`
+        width: 50vw;
+        margin: 0 auto;
+      `}
+    >
+      <Line options={options} data={data} />
+    </Div>
+  );
 };
