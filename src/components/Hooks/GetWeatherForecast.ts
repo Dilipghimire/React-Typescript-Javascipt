@@ -26,8 +26,13 @@ export type ForecastData = {
   forecast: {
     forecastday: {
       date: string;
+      hour: {
+        time: string
+        temp_f: string
+      }[]
       day: {
         maxtemp_f: string;
+        mintemp_f: string;
         condition: {
           icon: string;
           text: string;
