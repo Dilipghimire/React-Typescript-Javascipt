@@ -33,7 +33,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: "24 hours weather forecast",
+      text: `24 hours weather forecast`,
     },
   },
 };

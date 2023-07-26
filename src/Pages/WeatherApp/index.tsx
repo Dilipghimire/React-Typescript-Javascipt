@@ -44,14 +44,20 @@ const WeatherContainer = styled.div`
   }
 `;
 
-const WeeklyForecast = styled.div`
+const Alert = styled.div`
   position: absolute;
-  box-shadow: 0px 0px 2px 0px #2d2d2d;
-  padding: 12px;
+  top: 10%;
+  left: 25%;
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50vw;
 
-  img {
-    width: 3rem;
-    height: 3rem;
+  span {
+    cursor: pointer;
   }
 `;
 
@@ -85,7 +91,10 @@ const SearchBox = ({ mutateAsync }: { mutateAsync: any }) => {
 
 export default () => {
   const { data, mutateAsync } = useWeatherForecast();
-  const { addForecastData, forecastData } = useForecast();
+  const { addForecastData } = useForecast();
+  const [hasAlert, setHasAlert] = useState(true);
+
+  console.log({ data });
 
   return (
     <Div
@@ -108,6 +117,12 @@ export default () => {
       >
         <SearchBox mutateAsync={mutateAsync} />
       </Formik>
+      {hasAlert && data?.alerts?.alert && (
+        <Alert>
+          <p>{data?.alerts?.alert[0]?.headline}</p>
+          <span onClick={() => setHasAlert(false)}>X</span>
+        </Alert>
+      )}
       <WeatherContainer>
         {data && (
           <Div

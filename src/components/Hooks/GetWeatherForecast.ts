@@ -4,6 +4,15 @@ import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
 export type ForecastData = {
+  alerts: {
+    alert: {
+      areas: string;
+      desc: string;
+      note: string;
+      event: string;
+      headline: string
+    }[];
+  };
   location: {
     name: string;
     region: string;
@@ -27,9 +36,9 @@ export type ForecastData = {
     forecastday: {
       date: string;
       hour: {
-        time: string
-        temp_f: string
-      }[]
+        time: string;
+        temp_f: string;
+      }[];
       day: {
         maxtemp_f: string;
         mintemp_f: string;
