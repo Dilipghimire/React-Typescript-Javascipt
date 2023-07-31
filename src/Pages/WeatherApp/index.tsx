@@ -83,7 +83,7 @@ const SearchBox = ({ mutateAsync }: { mutateAsync: any }) => {
           transform: translate(-50%, -50%);
         `}
         name="location"
-        placeholder="Enter a Zip, State...."
+        placeholder="Enter a zip code"
       />
     </Form>
   );
@@ -117,7 +117,7 @@ export default () => {
       >
         <SearchBox mutateAsync={mutateAsync} />
       </Formik>
-      {hasAlert && data?.alerts?.alert && (
+      {!hasAlert && data?.alerts?.alert && (
         <Alert>
           <p>{data?.alerts?.alert[0]?.headline}</p>
           <span onClick={() => setHasAlert(false)}>X</span>
