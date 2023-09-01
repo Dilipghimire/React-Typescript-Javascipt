@@ -7,7 +7,7 @@ import Education from "./Education";
 export default () => {
   return (
     <div>
-      <HomeNav />
+      {/* <HomeNav /> */}
       <Routes>
         <Route path="dash-board" element={<Home />} />
         <Route path="experience" element={<Experience />} />
